@@ -33,6 +33,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch(requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("MainActivity", returnedData);
+                }
+                break;
+            default:
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_new);
@@ -41,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                String data = "hello my second activity";
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                intent.putExtra("extra_data", data);
+                startActivityForResult(intent,1);
+                /*Intent intent = new Intent("com.example.helloworld.ACTION_START");
                 startActivity(intent);*/
-                Intent intent = new Intent("com.example.helloworld.ACTION_START");
-                startActivity(intent);
             }
         });
     }
